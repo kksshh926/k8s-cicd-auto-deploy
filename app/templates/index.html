@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K8S CI/CD Message Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #222;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #444;
+        }
+        .message-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .empty {
+            color: #777;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>K8S CI/CD Message Board</h1>
+    <p class="subtitle">Flask + MySQL 기반 개인 DevOps 프로젝트</p>
+
+    <form method="POST">
+        <label for="username">이름</label>
+        <input type="text" id="username" name="username" placeholder="이름을 입력하세요" required>
+
+        <label for="message">메시지</label>
+        <input type="text" id="message" name="message" placeholder="메시지를 입력하세요" required>
+
+        <button type="submit">등록</button>
+    </form>
+
+    <h2>메시지 목록</h2>
+
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="message-card">
+                <div class="meta">
+                    <strong>{{ msg[1] }}</strong> | {{ msg[3] }}
+                </div>
+                <div>{{ msg[2] }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">아직 등록된 메시지가 없습니다.</div>
+    {% endif %}
+</body>
+</html>

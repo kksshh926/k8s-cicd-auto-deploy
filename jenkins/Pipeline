@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Git Clone') {
+            steps {
+                git 'https://github.com/kksshh926/k8s-cicd-auto-deploy.git'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t seohyunkirn/flask-app:1.0 -f docker/Dockerfile .'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh 'docker push seohyunkirn/flask-app:1.0'
+            }
+        }
+
+        stage('Kubernetes Deploy') {
+            steps {
+                sh 'kubectl apply -f k8s/'
+            }
+        }
+
+    }
+}
